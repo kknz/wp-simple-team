@@ -17,14 +17,11 @@ const { registerBlockType } = wp.blocks;
 const {
 	RichText,
 	MediaUpload,
-	BlockControls,
 } = wp.editor;
 
 const {
 	Button,
 	TextControl,
-	Toolbar,
-	IconButton,
 } = wp.components;
 
 const { Fragment } = wp.element;
@@ -166,40 +163,8 @@ registerBlockType( 'wst/block-wp-simple-team', {
 			} );
 		};
 
-		const onAddMember = () => {
-			setAttributes( {
-				members: [ ...members, memberPlaceholder ],
-			} );
-		};
-
-		const onRemoveMember = () => {
-			if ( members.length > 1 ) {
-				const newMembers = [ ...members ];
-				newMembers.splice( -1, 1 );
-				setAttributes( {
-					members: newMembers,
-				} );
-			}
-		};
-
 		return (
 			<Fragment>
-				<BlockControls>
-					<Toolbar>
-						<IconButton
-							className="components-toolbar__control"
-							label={ __( 'Remove Team Member', 'wp-simple-team' ) }
-							icon="minus"
-							onClick={ onRemoveMember }
-						/>
-						<IconButton
-							className="components-toolbar__control"
-							label={ __( 'Add Team Member', 'wp-simple-team' ) }
-							icon="plus"
-							onClick={ onAddMember }
-						/>
-					</Toolbar>
-				</BlockControls>
 				<div className={ classnames(
 					className,
 					{ 'has-scroll': columns > 3 },
