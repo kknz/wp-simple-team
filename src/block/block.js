@@ -271,10 +271,39 @@ registerBlockType( 'wst/block-wp-simple-team', {
 			</Fragment>
 		);
 	},
-	save: function( props ) {
+	save: function( { attributes, className } ) {
+		const {
+			members,
+			columns,
+			hasCroppedPhoto,
+		} = attributes;
+
 		return (
-			<div className={ props.className }>
-				<p>Hello World23</p>
+			<div className={ classnames(
+				className,
+				'front-end',
+			) }>
+				<ul className={ classnames(
+					'team-members',
+					'columns-' + columns,
+					{ 'is-cropped': hasCroppedPhoto },
+				) }>
+					{ members.map( ( member, index ) => {
+						return (
+							<li className="team-member" key={ index }>
+								<div className="profile-image">
+									<img src={ member.profileURL } data-id={ member.profileID } alt={ __( 'Profile Image', 'wp-simple-team' ) } />
+									<div className="member-name">
+										<span className="name">{ member.name }</span> - <span className="position">{ member.position }</span>
+									</div>
+								</div>
+								<div className="description">
+									{ member.description }
+								</div>
+							</li>
+						);
+					} ) }
+				</ul>
 			</div>
 		);
 	},
