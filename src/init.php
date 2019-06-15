@@ -51,6 +51,12 @@ function wp_simple_team_block_assets() { // phpcs:ignore
 		filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: File modification time.
 	);
 
+	// Localize the script with avatar url
+	$translation_array = array(
+		'avatarURL' => plugins_url( '/images/avatar.jpg', dirname( __FILE__ ) ),
+	);
+	wp_localize_script( 'wp_simple_team-block-js', '_wpSimpleTeam', $translation_array );
+
 	/**
 	 * Register Gutenberg block on server-side.
 	 *
