@@ -4,6 +4,7 @@
  *
  * Enqueue CSS/JS of all the blocks.
  *
+ * @package WST
  */
 
 // Exit if accessed directly.
@@ -51,7 +52,7 @@ function wp_simple_team_block_assets() { // phpcs:ignore
 		filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: File modification time.
 	);
 
-	// Localize the script with avatar url
+	// Localize the script with avatar url.
 	$translation_array = array(
 		'avatarURL' => plugins_url( '/images/avatar.jpg', dirname( __FILE__ ) ),
 	);

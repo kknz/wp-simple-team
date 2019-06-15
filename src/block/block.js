@@ -5,12 +5,26 @@
  * Simple block, renders and saves the same content without any interactivity.
  */
 
+import classnames from 'classnames';
+
 //  Import CSS.
 import './style.scss';
 import './editor.scss';
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
+
+const {
+	RichText,
+	MediaUpload,
+} = wp.editor;
+
+const {
+	Button,
+	TextControl,
+} = wp.components;
+
+const { Fragment } = wp.element;
 
 const memberPlaceholder = {
 	profileID: 0,
@@ -85,11 +99,121 @@ registerBlockType( 'wst/block-wp-simple-team', {
 			default: false,
 		},
 	},
-	edit: function( props ) {
+	edit: ( props ) => {
+		const {
+			className,
+			attributes: {
+				members,
+				columns,
+				hasCroppedPhoto,
+			},
+			setAttributes,
+		} = props;
+
+		const onSelectImage = ( media, index ) => {
+			setAttributes( {
+				members: [
+					...members.slice( 0, index ),
+					{
+						...members[ index ],
+						profileID: media.id,
+						profileURL: media.url,
+					},
+					...members.slice( index + 1 ),
+				],
+			} );
+		};
+
+		const onChangeName = ( value, index ) => {
+			setAttributes( {
+				members: [
+					...members.slice( 0, index ),
+					{
+						...members[ index ],
+						name: value,
+					},
+					...members.slice( index + 1 ),
+				],
+			} );
+		};
+
+		const onChangePosition = ( value, index ) => {
+			setAttributes( {
+				members: [
+					...members.slice( 0, index ),
+					{
+						...members[ index ],
+						position: value,
+					},
+					...members.slice( index + 1 ),
+				],
+			} );
+		};
+
+		const onChangeDescription = ( value, index ) => {
+			setAttributes( {
+				members: [
+					...members.slice( 0, index ),
+					{
+						...members[ index ],
+						description: value,
+					},
+					...members.slice( index + 1 ),
+				],
+			} );
+		};
+
 		return (
-			<div className={ props.className }>
-				<p>Hello World23</p>
-			</div>
+			<Fragment>
+				<div className={ classnames(
+					className,
+					{ 'has-scroll': columns > 3 },
+				) }>
+					<ul className={ classnames(
+						'team-members',
+						'columns-' + columns,
+						{ 'is-cropped': hasCroppedPhoto },
+					) }>
+						{ members.map( ( member, index ) => {
+							return (
+								<li className="team-member" key={ index }>
+									<div className="profile-image">
+										<MediaUpload
+											onSelect={ ( media ) => onSelectImage( media, index ) }
+											allowedTypes="image"
+											value={ member.profileID }
+											render={ ( { open } ) => (
+												<Button className="" onClick={ open }>
+													<img src={ member.profileURL } alt={ __( 'Profile Image', 'wp-simple-team' ) } />
+												</Button>
+											) }
+										/>
+									</div>
+									<TextControl
+										label="Name"
+										value={ member.name }
+										onChange={ ( value ) => onChangeName( value, index ) }
+										className="name"
+									/>
+									<TextControl
+										label="Position"
+										value={ member.position }
+										onChange={ ( value ) => onChangePosition( value, index ) }
+										className="position"
+									/>
+									<RichText
+										tagName="div"
+										placeholder={ __( 'Write the description…', 'wp-simple-team' ) }
+										value={ member.description }
+										onChange={ ( value ) => onChangeDescription( value, index ) }
+										className="description"
+									/>
+								</li>
+							);
+						} ) }
+					</ul>
+				</div>
+			</Fragment>
 		);
 	},
 	save: function( props ) {
