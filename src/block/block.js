@@ -18,6 +18,7 @@ const {
 	RichText,
 	MediaUpload,
 	BlockControls,
+	InspectorControls,
 } = wp.editor;
 
 const {
@@ -25,6 +26,9 @@ const {
 	TextControl,
 	Toolbar,
 	IconButton,
+	PanelBody,
+	RangeControl,
+	ToggleControl,
 } = wp.components;
 
 const { Fragment } = wp.element;
@@ -200,6 +204,22 @@ registerBlockType( 'wst/block-wp-simple-team', {
 						/>
 					</Toolbar>
 				</BlockControls>
+				<InspectorControls>
+					<PanelBody>
+						<RangeControl
+							label={ __( 'Team Columns', 'wp-simple-team' ) }
+							value={ columns }
+							onChange={ ( value ) => setAttributes( { columns: value } ) }
+							min={ 1 }
+							max={ 6 }
+						/>
+						<ToggleControl
+							label={ __( 'Crop Photo', 'wp-simple-team' ) }
+							checked={ hasCroppedPhoto }
+							onChange={ () => setAttributes( { hasCroppedPhoto: ! hasCroppedPhoto } ) }
+						/>
+					</PanelBody>
+				</InspectorControls>
 				<div className={ classnames(
 					className,
 					{ 'has-scroll': columns > 3 },
