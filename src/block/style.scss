@@ -4,6 +4,207 @@
  * CSS for both Frontend+Backend.
  */
 
-.wp-block-wst-block-wp-simple-team  {
+.wp-block-wst-block-wp-simple-team {
+  &.front-end {
+    ul.team-members {
+      li.team-member {
+        .profile-image {
+          position: relative;
+          cursor: pointer;
+          &:hover {
+            .member-name {
+              background-color: rgba(255, 135, 20, 0.5);
+            }
+          }
+          .member-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 16px;
+            line-height: 16px;
+          }
+        }
+        .description {
+          display: none;
+        }
+      }
+    }
+  }
+  ul.team-members {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    &.is-cropped {
+      li.team-member {
+        .profile-image {
+          display: flex;
+          height: 100%;
+          img {
+            @supports ((position: -webkit-sticky) or (position: sticky)) {
+              height: 100%;
+              object-fit: cover;
+              flex: 1;
+            }
+          }
+        }
+      }
+    }
+    li.team-member {
+      width: calc((100% - 16px) / 2);
+      margin: 0 16px 20px 0;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      button {
+        height: 100%;
+        &:focus:enabled {
+          box-shadow: none;
+        }
+      }
+      .profile-image {
+        text-align: center;
+        margin-bottom: 10px;
+        img {
+          width: 100%;
+          display: block;
+          max-width: 100%;
+        }
+      }
+    }
+    &.columns-1 {
+      li.team-member {
+        width: 100%;
+        &:nth-of-type(1n) {
+          margin-right: 0;
+        }
+      }
+    }
+    &.columns-2 {
+      li.team-member {
+        &:nth-of-type(2n) {
+          margin-right: 0;
+        }
+      }
+    }
+    &.columns-3 {
+      li.team-member {
+        width: calc((100% - 32px) / 3);
+        @supports (-ms-ime-align: auto) {
+          width: calc((100% - 32px) / 3 - 1px);
+        }
+        &:nth-of-type(3n) {
+          margin-right: 0;
+        }
+      }
+    }
+    &.columns-4 {
+      li.team-member {
+        width: calc((100% - 48px) / 4);
+        @supports (-ms-ime-align: auto) {
+          width: calc((100% - 48px) / 4 - 1px);
+        }
+        &:nth-of-type(4n) {
+          margin-right: 0;
+        }
+      }
+    }
+    &.columns-5 {
+      li.team-member {
+        width: calc((100% - 64px) / 5);
+        @supports (-ms-ime-align: auto) {
+          width: calc((100% - 64px) / 5 - 1px);
+        }
+        &:nth-of-type(5n) {
+          margin-right: 0;
+        }
+      }
+    }
+    &.columns-6 {
+      li.team-member {
+        width: calc((100% - 80px) / 6);
+        @supports (-ms-ime-align: auto) {
+          width: calc((100% - 80px) / 6 - 1px);
+        }
+        &:nth-of-type(6n) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
 
+.wp-simple-team__popup-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #000;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  &:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+  .popup_content {
+    text-align: initial;
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 650px;
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    color: #000;
+    background-color: #fff;
+    z-index: 2;
+    display: inline-block;
+    vertical-align: middle;
+    width: 98%;
+    padding: 30px 80px;
+    .popup_close_btn {
+      position: absolute;
+      top: -10px;
+      right: 15px;
+      font-size: 50px;
+      text-decoration: none;
+      cursor: pointer;
+      &:hover {
+        color: #ff8714;
+      }
+    }
+  }
+  .popup_content_item {
+    padding: 40px 0;
+    img {
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 15px;
+      max-width: 300px;
+    }
+    .member-name {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .description {
+      margin-top: 30px;
+      p {
+        font-size: 16px;
+        font-weight: 300;
+      }
+    }
+  }
 }

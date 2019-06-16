@@ -5,6 +5,65 @@
  * which makes it higher in priority.
  */
 
-.wp-block-wst-block-wp-simple-team  {
+.wp-block-wst-block-wp-simple-team {
+  color: $black;
+  margin: 0 auto;
+  &.has-scroll {
+    overflow-x: scroll;
+    /* width */
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
 
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+  ul.team-members {
+    button {
+      padding: 0;
+      display: inline-flex;
+      align-items: flex-start;
+    }
+    li.team-member {
+      .components-base-control__label {
+        font-size: 10px;
+      }
+      .components-text-control__input {
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+          0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+        border: none;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+      .profile-image {
+        display: flex;
+      }
+      .description {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+    &.columns-4 {
+      width: 600px;
+    }
+    &.columns-5 {
+      width: 754px;
+    }
+    &.columns-6 {
+      width: 908px;
+    }
+  }
 }
