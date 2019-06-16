@@ -83,3 +83,19 @@ function wp_simple_team_block_assets() { // phpcs:ignore
 
 // Hook: Block assets.
 add_action( 'init', 'wp_simple_team_block_assets' );
+
+/**
+ * Enqueue Gutenberg block assets for frontend.
+ *
+ * @since 1.0.0
+ */
+function wp_simple_team_enqueue_script() {
+	wp_enqueue_script(
+		'wp-simple-team',
+		plugins_url( '/dist/wp-simple-team.js', dirname( __FILE__ ) ),
+		array( 'jquery' ),
+		filemtime( plugin_dir_path( __DIR__ ) . 'dist/wp-simple-team.js' ), // Version: filemtime — Gets file modification time.
+		true // Enqueue the script in the footer.
+	);
+}
+add_action( 'wp_enqueue_scripts', 'wp_simple_team_enqueue_script' );
